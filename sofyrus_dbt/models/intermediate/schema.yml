@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: int_appointments_enriched
+    description: "Appointments with business - logic categorization added:
+                  age groups, booking gap categories, risk bands"
+
+    columns: 
+       - name: appointment_id
+         tests:
+           - unique
+           - not_null
+       - name: age_group
+         tests:
+           - not_null
+           - accepted_values:
+               arguments:
+                 values: ['Child (0-12)', 'Teen (13-17)', 'Young adults (18-35)', 
+                       'Adult (36-60)', 'Senior (60+)']
+       - name: booking_gap_category
+         tests:
+           - not_null
+           - accepted_values:
+                arguments:
+                  values: ['Same Day', '1-7 Days', '8-30 Days', '30+ Days']
+       - name: risk_band 
+         tests: 
+           - not_null
+           - accepted_values:
+               arguments:
+                values: ['Low', 'Medium', 'High', 'Very High']
+

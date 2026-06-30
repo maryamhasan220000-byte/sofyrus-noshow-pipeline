@@ -1,0 +1,40 @@
+version: 2
+
+models: 
+  - name: mart_no_show_risk
+    description: "Final analysis - ready appointment table with risk scores, categories, 
+                  and attendence outcomes. Primary source for dashboard and reporting.
+                  Materialized as table for performance"
+    columns:
+      - name: appointment_id
+        tests:
+          - unique
+          - not_null
+      - name: risk_score
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0,1,2,3,4,5,6]
+      - name: risk_band
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Low', 'Medium', 'High', 'Very High']
+      - name: is_no_show
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1,0]
+      - name: age_group
+        tests:
+          - not_null
+      - name: booking_gap_category
+        tests:
+          - not_null
+
+
+
+

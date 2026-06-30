@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: stg_appointments
+    description: "Cleaned and renamed appointment records. one row per appointment"
+    columns:
+      - name: appointment_id 
+        description: "Unique appointment identifier"
+        test:
+          - unique
+          - not_null
+      - name: patient_id
+        description: "Patient identifer"
+        tests:
+          - not_null
+      - name: age
+        description: "Patient age, must be non negative after python cleaning"
+        tests:
+          - not_null
+      - name: is_no_show
+        description: "1 if patient didnt attent and 0 if they did"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0,1]
+      - name: risk_score
+        description: "Composite risk score 0-6"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0,1,2,3,4,5,6]
+      - name: days_until_appointment
+        description: "Days between scheduling and appointment date"
+        tests:
+          - not_null
+
+
+
+
+

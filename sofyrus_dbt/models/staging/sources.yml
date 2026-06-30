@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: raw
+    database: sofyrus
+    schema: dbo
+    description: "Raw appointment data loaded by the python ETL pipeline"
+    tables:
+      - name: appointments
+        description: "110,526 Brazilian healthcare appointment records with risk score"
+        columns: 
+          - name: AppointmentID
+            description: "Unique identifer for each appointment"
+            tests:
+              - unique
+              - not_null
+          - name: PatientId
+            description: "Patient identifer - one patient can have multiple appointments"
+            tests:
+              - not_null
+          - name: Age
+            description: "Patient age in years - negative value removed in Python pipeline "
+            tests:
+              - not_null
+          - name: risk_score
+            description: "Composite risk score 0-6 calculated in the Python pipeline"
+            tests:
+              - not_null
+              - accepted_values:
+                  arguments:
+                    values:[0,1,2,3,4,5,6]
+
+
+ 
